@@ -1,21 +1,20 @@
-// Atualização da contagem regressiva
+// Função para calcular a contagem regressiva
 function updateCountdown() {
-    const eventDate = new Date("2024-12-20T19:00:00");
-    const currentDate = new Date();
-    const timeDiff = eventDate - currentDate;
+    const formaturaDate = new Date("2024-12-03T19:00:00").getTime(); // Data de formatura
+    const now = new Date().getTime();
+    const distance = formaturaDate - now;
 
-    if (timeDiff > 0) {
-        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-        document.getElementById("countdown").textContent =
-            `${days} dias, ${hours}h ${minutes}m ${seconds}s`;
+    if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "A formatura chegou!";
+        clearInterval(countdownInterval);
     } else {
-        document.getElementById("countdown").textContent = "Chegou o grande dia!";
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 }
 
-// Atualiza a contagem a cada segundo
-setInterval(updateCountdown, 1000);
+// Atualiza a contagem regressiva a cada segundo
+const countdownInterval = setInterval(updateCountdown, 1000);
